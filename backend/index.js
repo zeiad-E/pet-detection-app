@@ -5,7 +5,9 @@ const cors = require('cors');
 const fileUpload = require('express-fileupload');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const sqlite3 = require('sqlite3').verbose();
 require('dotenv').config();
+
 const app = express();
 
 // Middleware
@@ -14,9 +16,23 @@ app.use(fileUpload()); // Enable file uploads
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// In-memory user store (replace with MongoDB later)
-const users = new Map();
-const SECRET_KEY = process.env.SECRET_KEY; 
+// Initialize SQLite database
+const db = new sqlite3.Database('database.db', (err) => {
+    if (err) {
+        console.error('Error opening database', err.message);
+    } else {
+        // Create users table if it doesn't exist
+        db.run(`CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT UNIQUE NOT NULL,
+            password TEXT NOT NULL
+        )`);
+        console.log('Database connected and table initialized');
+    }
+});
+
+const SECRET_KEY = process.env.SECRET_KEY;
+
 // Register endpoint
 app.post('/register', async (req, res) => {
     const { username, password } = req.body;
@@ -25,14 +41,14 @@ app.post('/register', async (req, res) => {
         return res.status(400).json({ error: 'Username and password are required' });
     }
 
-    if (users.has(username)) {
-        return res.status(400).json({ error: 'Username already exists' });
-    }
-
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        users.set(username, { password: hashedPassword });
-        res.status(201).json({ message: 'User registered successfully' });
+        db.run('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword], function(err) {
+            if (err) {
+                return res.status(400).json({ error: 'Username already exists' });
+            }
+            res.status(201).json({ message: 'User registered successfully' });
+        });
     } catch (error) {
         res.status(500).json({ error: 'Error registering user' });
     }
@@ -46,13 +62,14 @@ app.post('/login', async (req, res) => {
         return res.status(400).json({ error: 'Username and password are required' });
     }
 
-    const user = users.get(username);
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-        return res.status(401).json({ error: 'Invalid credentials' });
-    }
+    db.get('SELECT * FROM users WHERE username = ?', [username], async (err, row) => {
+        if (err || !row || !(await bcrypt.compare(password, row.password))) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
 
-    const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1h' });
-    res.json({ token });
+        const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1h' });
+        res.json({ token });
+    });
 });
 
 // Middleware to verify JWT
@@ -96,3 +113,14 @@ app.post('/upload', verifyToken, async (req, res) => {
 });
 
 app.listen(3000, () => console.log('Backend running on port 3000'));
+
+// Close database connection on process exit
+process.on('SIGINT', () => {
+    db.close((err) => {
+        if (err) {
+            console.error('Error closing database', err.message);
+        }
+        console.log('Database connection closed.');
+        process.exit(0);
+    });
+});
