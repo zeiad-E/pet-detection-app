@@ -23,8 +23,8 @@ from ultralytics import YOLO
 # -----------------------------
 # Load image from URL
 # -----------------------------
-#image_url = "https://cdn.openart.ai/uploads/image_VRdTKG3C_1718793883627_raw.jpg"
-image_url = "https://images.thdstatic.com/productImages/1c654fe6-311b-4755-b501-a861c534988f/svn/brown-byblight-kitchen-dining-tables-bb-f1889yf-64_600.jpg"
+image_url = "https://cdn.openart.ai/uploads/image_VRdTKG3C_1718793883627_raw.jpg"
+# image_url = "https://images.thdstatic.com/productImages/1c654fe6-311b-4755-b501-a861c534988f/svn/brown-byblight-kitchen-dining-tables-bb-f1889yf-64_600.jpg"
 
 response = requests.get(image_url)
 image = Image.open(BytesIO(response.content)).convert("RGB")
