@@ -1,0 +1,214 @@
+.container {
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;
+    padding: 2rem;
+    background: linear-gradient(to bottom, #fff, #f8f9fc);
+  }
+  
+  
+  .aboutSection {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    font-weight: 600;
+  }
+  
+  .highlight {
+    color: #7c3aed;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 0.5rem;
+  }
+  
+ 
+  .missionSection {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  
+  .missionTitle {
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .missionCard {
+    background: #f4f5ff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin: 0 auto;
+    max-width: 600px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .icons {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    color: #7c3aed;
+  }
+  
+  .icon {
+    transition: transform 0.3s;
+  }
+  
+  .icon:hover {
+    transform: scale(1.2);
+  }
+  
+  .aiSection {
+    text-align: center;
+  }
+  
+  .aiTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .aiSubtitle {
+    color: #666;
+    margin-bottom: 2rem;
+  }
+  
+  .cards {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 280px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    text-align: left;
+  }
+  
+  .card h5 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #1f2937;
+  }
+  
+  .card p {
+    font-size: 0.95rem;
+    color: #4b5563;
+  }
+  
+ 
+  .teamSection {
+    text-align: center;
+    margin-top: 4rem;
+    margin-bottom: 3rem;
+  }
+  
+  .teamTitle {
+    font-size: 1.75rem;
+    font-weight: bold;
+  }
+  
+  .teamSubtitle {
+    color: #666;
+    margin: 0.5rem 0 2rem;
+  }
+  
+  .teamGrid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  
+  .teamMember {
+    max-width: 250px;
+    text-align: center;
+  }
+  
+  .avatar {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    border: 3px solid #e5e7eb;
+  }
+  
+  .role {
+    color: #7c3aed;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  
+  
+  .contactSection {
+    background: #f8fafc;
+    padding: 3rem 1rem;
+    text-align: center;
+    border-radius: 10px;
+    margin: 3rem auto 0;
+    max-width: 800px;
+  }
+  
+  .contactTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .contactSubtitle {
+    color: #666;
+    margin-bottom: 2rem;
+  }
+  
+  .contactForm {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  }
+  
+  .row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .contactForm input,
+  .contactForm select,
+  .contactForm textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  
+  .contactForm button {
+    margin-top: 1rem;
+    padding: 0.75rem 2rem;
+    background: #6366f1;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .contactForm button:hover {
+    background: #4f46e5;
+  }
+  

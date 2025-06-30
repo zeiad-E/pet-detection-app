@@ -1,0 +1,83 @@
+.uploadContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .uploadIcon {
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+  }
+  
+  .header h2 {
+    font-size: 1.8rem;
+    margin: 0.2rem 0;
+    color: #374151;
+  }
+  
+  .header p {
+    font-size: 1rem;
+    color: #6b7280;
+  }
+  
+  .dropZone {
+    background-color: #fff;
+    border: 1px dashed #d1d5db;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
+  
+  .dropInner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cloudIcon {
+    background-color: #e5e7eb;
+    padding: 1rem;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    color: #6b7280;
+  }
+  
+  .dropText {
+    font-size: 1rem;
+    color: #374151;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+  }
+  
+  .supportText {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    margin-bottom: 1rem;
+  }
+  
+  .uploadButton {
+    background-color: #111827;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .uploadButton:hover {
+    background-color: #1f2937;
+  }
+  
