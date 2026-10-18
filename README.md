@@ -1,70 +1,56 @@
-# Getting Started with Create React App
+# PetDetect AI
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Live demo:** https://pet-detection-app-frontend.vercel.app
 
-## Available Scripts
+A full-stack web app that finds cats and dogs in your photos. Sign up, upload an image, and PetDetect tells you whether it contains a pet, then returns a segmentation mask that highlights exactly where the cat or dog is.
 
-In the project directory, you can run:
+## How it works
 
-### `npm start`
+```
+React frontend ──> Node.js / Express API (auth, uploads) ──> Python AI server (Flask)
+                                                              ├─ YOLOv5: is there a cat or dog?
+                                                              └─ DeepLabV3: pixel-level pet mask
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. The user logs in. The Express API issues a **JWT** and stores passwords hashed with **bcrypt**.
+2. The image goes to the protected `/upload` endpoint, which forwards it to the AI server.
+3. **YOLOv5** checks the image for cats and dogs (COCO classes).
+4. If a pet is found, **DeepLabV3 (ResNet-50)** segments it, and the masked image is sent back to the user.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tech stack
 
-### `npm test`
+| Layer | Tools |
+|---|---|
+| Frontend | React 19, React Router |
+| Backend | Node.js, Express, JWT, bcrypt, SQLite |
+| AI server | Python, Flask, PyTorch, Ultralytics YOLOv5, torchvision DeepLabV3, OpenCV |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Project structure
 
-### `npm run build`
+```
+src/         React frontend
+backend/     Express API (auth + upload proxy)
+ai-server/   Flask inference server (detection + segmentation)
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Run locally
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+# AI server
+cd ai-server
+pip install flask torch torchvision ultralytics opencv-python pillow
+python app.py
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Backend: copy .env.example to .env and set SECRET_KEY
+cd backend
+npm install
+node index.js
 
-### `npm run eject`
+# Frontend
+npm install
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Author
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Zeiad Emad**: [LinkedIn](https://www.linkedin.com/in/zeiad-emad/) · [GitHub](https://github.com/zeiad-E)
